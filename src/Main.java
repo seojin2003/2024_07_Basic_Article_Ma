@@ -37,21 +37,83 @@ public class Main {
 				articles.add(article);
 				
 				System.out.println(lastArticleId + "번 글이 생성되었습니다");
-
+				
 			} else if (cmd.equals("article list")) {
-				System.out.println("게시글이 없습니다");
-
+				
 				if (articles.size() == 0) {
 					System.out.println("게시글이 없습니다");
 					continue;
 				}
-
+				
 				System.out.println("번호	|	제목");
-
+				
 				for (int i = articles.size() - 1; i >= 0; i--) {
 					Article article = articles.get(i);
 					System.out.printf("%d	|	%s\n", article.id, article.title);
 				}
+				
+			} else if (cmd.startsWith("article detail ")) {
+				String[] cmdBits = cmd.split(" ");
+				int id = 0;
+				
+				try {
+					id = Integer.parseInt(cmdBits[2]);
+				} catch (NumberFormatException e) {
+					System.out.println("명령어가 올바르지 않습니다");
+					continue;
+				} catch (Exception e) {
+					System.out.println("error : " + e);
+				}
+				
+				Article foundArticle = null;
+				
+				for (Article article : articles){
+					if (id == article.id) {
+						foundArticle = article;
+						break;
+					}
+				}
+				
+				if (foundArticle == null) {
+					System.out.println(id + "번 게시물은 존재하지 않습니다");
+					continue;
+				}
+				
+				System.out.printf("번호 : %d\n", foundArticle.id);
+				System.out.printf("제목 : %s\n", foundArticle.title);
+				System.out.printf("내용 : %s\n", foundArticle.body);
+
+			} else if (cmd.startsWith("article delete ")) {
+				String[] cmdBits = cmd.split(" ");
+
+				int id = 0;
+
+				try {
+					id = Integer.parseInt(cmdBits[2]);
+				} catch (NumberFormatException e) {
+					System.out.println("명령어가 올바르지 않습니다");
+					continue;
+				} catch (Exception e) {
+					System.out.println("error : " + e);
+				}
+
+				Article foundArticle = null;
+
+				for (Article article : articles){
+					if (id == article.id) {
+						foundArticle = article;
+						break;
+					}
+				}
+
+				if (foundArticle == null) {
+					System.out.println(id + "번 게시물은 존재하지 않습니다");
+					continue;
+				}
+
+				articles.remove(foundArticle);
+
+				System.out.println(id + "번 게시물을 삭제했습니다");
 
 			} else {
 				System.out.println("존재하지 않는 명령어 입니다");
