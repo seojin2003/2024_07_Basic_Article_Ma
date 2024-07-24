@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Main {
+public class Test {
 	static int lastArticleId;
 	static List<Article> articles;
 
@@ -21,12 +21,12 @@ public class Main {
 
 		int lastArticleId = 0;
 		List<Article> articles = new ArrayList<>();
-		Scanner sc = new Scanner(System.in);
+		Scanner sc1 = new Scanner(System.in);
 
 		while (true) {
 			System.out.printf("명령어) ");
 			
-			String cmd = sc.nextLine().trim();
+			String cmd = sc1.nextLine().trim();
 			
 			if (cmd.equals("exit")) {
 				break;
@@ -39,13 +39,13 @@ public class Main {
 			
 			if (cmd.equals("article write")) {
 				System.out.printf("제목 : ");
-				String title = sc.nextLine();
+				String title = sc1.nextLine();
 				System.out.printf("내용 : ");
-				String body = sc.nextLine();
+				String body = sc1.nextLine();
 				
 				lastArticleId++;
 		        
-				Article article = new Article(lastArticleId, Util.getDateStr(), title, body, 0);
+				Article article = new Article(lastArticleId, util.getDateStr(), title, body, 0);
 				
 				articles.add(article);
 				
@@ -129,9 +129,9 @@ public class Main {
 				}
 
 				System.out.printf("수정할 제목 : ");
-				String title = sc.nextLine();
+				String title = sc1.nextLine();
 				System.out.printf("수정할 내용 : ");
-				String body = sc.nextLine();
+				String body = sc1.nextLine();
 
 				foundArticle.title = title;
 				foundArticle.body = body;
@@ -175,7 +175,7 @@ public class Main {
 			}
 		}
 		
-		sc.close();
+		sc1.close();
 
 		System.out.println("== 프로그램 끝 ==");
 	}
@@ -183,7 +183,7 @@ public class Main {
 	private static void makeTestData() {
 		System.out.println("테스트용 게시물 데이터 3개를 생성했습니다");
 		for (int i = 1; i <= 3; i++) {
-			articles.add(new Article(++lastArticleId, Util.getDateStr(), "제목" + i, "내용" + i, i * 10));
+			articles.add(new Article(++lastArticleId, util.getDateStr(), "제목" + i, "내용" + i, i * 10));
 		}
 	}
 }
